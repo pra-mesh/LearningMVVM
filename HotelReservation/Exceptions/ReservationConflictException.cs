@@ -1,10 +1,5 @@
 ﻿using HotelReservation.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelReservation.Exceptions;
 public class ReservationConflictException : Exception
@@ -33,5 +28,5 @@ public class ReservationConflictException : Exception
     {
     }
 
-   
+
 }

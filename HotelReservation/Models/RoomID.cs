@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HotelReservation.Models;
+﻿namespace HotelReservation.Models;
 public class RoomID
 {
-  
+
 
     private int FloorNumber { get; }
     public int RoomNumber { get; }
@@ -34,7 +28,7 @@ public class RoomID
 
     public static bool operator ==(RoomID roomID1, RoomID roomID2)
     {
-        if(roomID1 is null && roomID2 is null)
+        if (roomID1 is null && roomID2 is null)
         {
             return true;
         }

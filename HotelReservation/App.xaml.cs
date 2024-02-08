@@ -1,7 +1,5 @@
-﻿using HotelReservation.Exceptions;
-using HotelReservation.Models;
-using System.Configuration;
-using System.Data;
+﻿using HotelReservation.Models;
+using HotelReservation.ViewModels;
 using System.Windows;
 
 namespace HotelReservation;
@@ -10,36 +8,19 @@ namespace HotelReservation;
 /// </summary>
 public partial class App : Application
 {
+    private readonly Hotel _hotel;
+    public App()
+    {
+        _hotel = new Hotel("Learning MVVM");
+    }
     protected override void OnStartup(StartupEventArgs e)
     {
-        Hotel hotel = new Hotel("Learning MVVM");
-        try
+        MainWindow = new MainWindow()
         {
-            hotel.MakeReservation(new Reservation(
-                new RoomID(1, 3),
-                "userName",
-                new DateTime(2024, 1, 1),
-                new DateTime(2024, 1, 2)
-                ));
-            hotel.MakeReservation(new Reservation(
-               new RoomID(2, 3),
-               "userName",
-               new DateTime(2024, 1, 1),
-               new DateTime(2024, 1, 2)
-               ));
+            DataContext = new MainViewModel(_hotel)
+        };
 
-            hotel.MakeReservation(new Reservation(
-                new RoomID(2, 3),
-                "userName",
-                new DateTime(2024, 1, 1),
-                new DateTime(2024, 1, 2)
-                ));
-        }
-        catch(ReservationConflictException ex)
-        {
-
-        }
-        IEnumerable<Reservation> reservations = hotel.GetReservationsForUser("userName");
+        MainWindow.Show();
         base.OnStartup(e);
     }
 }

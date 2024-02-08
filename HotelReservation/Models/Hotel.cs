@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HotelReservation.Models;
+﻿namespace HotelReservation.Models;
 public class Hotel
 {
     private readonly ReservationBook _reservationBook;
@@ -22,8 +16,8 @@ public class Hotel
         return _reservationBook.GetReservationsForUser(username);
     }
 
-    public IEnumerable<Reservation> GetReservations() 
-    { 
+    public IEnumerable<Reservation> GetReservations()
+    {
         return _reservationBook.GetReservations();
     }
 

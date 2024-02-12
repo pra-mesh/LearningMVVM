@@ -4,9 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HotelReservation.Views"
+             xmlns:convertors="clr-namespace:HotelReservation.Convertors"
+             xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <convertors:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
+    
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -25,9 +32,15 @@
                     Command="{Binding MakeReservationcommand}"
                     Grid.Column="1"/>
         </Grid>
-        <ListView Grid.Row="1"
-                  Margin="0 25 0 0 "
-                  ItemsSource="{Binding Reservations}">
+        <Grid  Grid.Row="1"
+               Margin="0 25 0 0 ">
+            <custom:LoadingSpinner Diameter="100"
+                                   Thickness="5"
+                                   IsLoading="{Binding IsLoading}" />
+
+            <ListView
+                  ItemsSource="{Binding Reservations}"
+                  Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment"
@@ -68,6 +81,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        </Grid>
     </Grid>
     
 </UserControl>

@@ -13,6 +13,19 @@ public class ReservationListingViewModel : ViewModelBase
   private readonly HotelStore _hotelStore;
 
   public IEnumerable<ReservationViewModel> Reservations => _reservation;
+  private bool _isLoading;
+  public bool IsLoading
+  {
+    get
+    {
+      return _isLoading;
+    }
+    set
+    {
+      _isLoading = value;
+      OnPropertyChanged(nameof(IsLoading));
+    }
+  }
   public ICommand MakeReservationcommand { get; }
   public ICommand LoadReservationCommand { get; }
 
@@ -25,7 +38,6 @@ public class ReservationListingViewModel : ViewModelBase
     MakeReservationcommand = new NavigateCommand(navigationService);
     LoadReservationCommand = new LoadReservationCommand(hotelStore, this);
     hotelStore.ReservationMade += OnReservationMade;
-    //UpdateReservations();
   }
 
   public override void Dispose()

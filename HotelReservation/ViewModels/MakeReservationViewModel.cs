@@ -1,87 +1,105 @@
-﻿using HotelReservation.Models;
+﻿using HotelReservation.Services;
 using HotelReservation.ViewModels.Commands;
+using HotelReservation.ViewModels.Stores;
 using System.Windows.Input;
 
-namespace HotelReservation.ViaewModels;
+
+
+namespace HotelReservation.ViewModels;
 public class MakeReservationViewModel : ViewModelBase
 {
 
-    private string? _username;
-    public string UserName
+  private string? _username;
+  public string UserName
+  {
+    get
     {
-        get
-        {
-            return _username;
-        }
-        set
-        {
-            _username = value;
-            OnPropertyChanged(nameof(UserName));
-        }
+      return _username;
     }
+    set
+    {
+      _username = value;
+      OnPropertyChanged(nameof(UserName));
+    }
+  }
 
-    private int _floorNo;
-    public int FloorNo
+  private int _floorNo;
+  public int FloorNo
+  {
+    get
     {
-        get
-        {
-            return _floorNo;
-        }
-        set
-        {
-            _floorNo = value;
-            OnPropertyChanged(nameof(FloorNo));
-        }
+      return _floorNo;
     }
+    set
+    {
+      _floorNo = value;
+      OnPropertyChanged(nameof(FloorNo));
+    }
+  }
 
-    private int _roomNo;
-    public int RoomNo
+  private int _roomNo;
+  public int RoomNo
+  {
+    get
     {
-        get
-        {
-            return _roomNo;
-        }
-        set
-        {
-            _roomNo = value;
-            OnPropertyChanged(nameof(RoomNo));
-        }
+      return _roomNo;
     }
+    set
+    {
+      _roomNo = value;
+      OnPropertyChanged(nameof(RoomNo));
+    }
+  }
 
-    private DateTime _startdate = DateTime.Now;
-    public DateTime StartDate
+  private DateTime _startdate = DateTime.Now;
+  public DateTime StartDate
+  {
+    get
     {
-        get
-        {
-            return _startdate;
-        }
-        set
-        {
-            _startdate = value;
-            OnPropertyChanged(nameof(StartDate));
-        }
+      return _startdate;
     }
-    private DateTime _endDate = DateTime.Now;
-    public DateTime EndDate
+    set
     {
-        get
-        {
-            return _endDate;
-        }
-        set
-        {
-            _endDate = value;
-            OnPropertyChanged(nameof(EndDate));
-        }
+      _startdate = value;
+      OnPropertyChanged(nameof(StartDate));
     }
+  }
+  private DateTime _endDate = DateTime.Now;
+  public ReservationListingViewModel ReservationListingViewModel { get; }
 
-    public ICommand? SubmitCommand { get; }
-    public ICommand? CancelCommand { get; }
-
-    public MakeReservationViewModel(Hotel hotel)
+  public DateTime EndDate
+  {
+    get
     {
-        SubmitCommand = new MakeReservationCommand(this, hotel);
-        CancelCommand = new CancelMakeReservationCommand();
+      return _endDate;
     }
+    set
+    {
+      _endDate = value;
+      OnPropertyChanged(nameof(EndDate));
+    }
+  }
+
+  public ICommand? SubmitCommand { get; }
+  public ICommand? CancelCommand { get; }
+  public ICommand? PayCommand { get; }
+
+  public MakeReservationViewModel(HotelStore hotelStore, NavigationService navigationService, ReservationListingViewModel reservationListingViewModel, NavigationService payment)
+  {
+    SubmitCommand = new MakeReservationCommand(this, hotelStore, navigationService);
+    CancelCommand = new NavigateCommand(navigationService);
+    PayCommand = new NavigateCommand(payment);
+    ReservationListingViewModel = reservationListingViewModel;
+
+  }
+
+  public void ClearReservation()
+  {
+    UserName = "";
+    FloorNo = 0;
+    RoomNo = 0;
+    StartDate = DateTime.Today;
+    EndDate = DateTime.Today.AddDays(1);
+  }
 
 }

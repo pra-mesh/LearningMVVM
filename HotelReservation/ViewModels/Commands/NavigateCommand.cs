@@ -1,11 +1,18 @@
-﻿using HotelReservation.ViewModels.Command;
+﻿using HotelReservation.Services;
 
 namespace HotelReservation.ViewModels.Commands;
 
 public class NavigateCommand : CommandBase
 {
-    public override void Execute(object? parameter)
-    {
+  private readonly NavigationService _navigationService;
 
-    }
+  public NavigateCommand(NavigationService navigationService)
+  {
+
+    _navigationService = navigationService;
+  }
+  public override void Execute(object? parameter)
+  {
+    _navigationService.Navigate();
+  }
 }

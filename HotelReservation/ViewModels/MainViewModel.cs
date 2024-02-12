@@ -1,14 +1,23 @@
-﻿using HotelReservation.Models;
-using HotelReservation.ViaewModels;
+﻿using HotelReservation.ViewModels.Stores;
 
 namespace HotelReservation.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    public ViewModelBase CurrentViewModel { get; }
+    private readonly NavigationStore _navigationStore;
 
-    public MainViewModel(Hotel hotel)
+    public MainViewModel(NavigationStore navigationStore)
     {
-        CurrentViewModel = new ReservationListingViewModel();
+        _navigationStore = navigationStore;
+        _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
     }
+
+    private void OnCurrentViewModelChanged()
+    {
+        OnPropertyChanged(nameof(CurrentViewModel));
+    }
+
+    public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+
+
 }

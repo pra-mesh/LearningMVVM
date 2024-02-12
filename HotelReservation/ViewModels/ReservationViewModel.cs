@@ -1,5 +1,4 @@
 ﻿using HotelReservation.Models;
-using HotelReservation.ViaewModels;
 
 namespace HotelReservation.ViewModels;
 

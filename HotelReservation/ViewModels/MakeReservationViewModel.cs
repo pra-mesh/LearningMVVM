@@ -65,7 +65,7 @@ public class MakeReservationViewModel : ViewModelBase
     }
   }
   private DateTime _endDate = DateTime.Now;
-  public ReservationListingViewModel ReservationListingViewModel { get; }
+
 
   public DateTime EndDate
   {
@@ -84,12 +84,12 @@ public class MakeReservationViewModel : ViewModelBase
   public ICommand? CancelCommand { get; }
   public ICommand? PayCommand { get; }
 
-  public MakeReservationViewModel(HotelStore hotelStore, NavigationService navigationService, ReservationListingViewModel reservationListingViewModel, NavigationService payment)
+  public MakeReservationViewModel(HotelStore hotelStore, NavigationService navigationService, NavigationService payment)
   {
     SubmitCommand = new MakeReservationCommand(this, hotelStore, navigationService);
     CancelCommand = new NavigateCommand(navigationService);
     PayCommand = new NavigateCommand(payment);
-    ReservationListingViewModel = reservationListingViewModel;
+
 
   }
 

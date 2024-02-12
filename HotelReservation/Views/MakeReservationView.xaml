@@ -108,8 +108,7 @@
                         Command="{Binding PayCommand}"
                         Margin="50 0 0 0" />
             </StackPanel>
-            <local:ReservationListingView Margin="0 0 0 10" DataContext="{Binding ReservationListingViewModel}"
-                                          Grid.Row="5" />
+           
         </Grid>
       
     </Grid>

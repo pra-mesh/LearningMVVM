@@ -54,7 +54,6 @@ public partial class App : Application
   private MakeReservationViewModel CreateMakeReservationViewModel()
   {
     return new MakeReservationViewModel(_hotelStore, new(_nav, CreateReservationViewModel),
-      CreateReservationViewModel(),
       new(_nav, CreatePaymentViewMode));
   }
 

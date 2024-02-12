@@ -47,7 +47,7 @@ public class MakeReservationCommand : AsyncCommandBase
       _makeReservationViewModel.ClearReservation();
 
 
-      //_reservationViewNavigationService.Navigate();
+      _reservationViewNavigationService.Navigate();
 
 
       //_makeReservationViewModel.CancelCommand.Execute(parameter);

@@ -27,10 +27,7 @@ public class ReservationListingViewModel : ViewModelBase
     hotelStore.ReservationMade += OnReservationMade;
     //UpdateReservations();
   }
-  ~ReservationListingViewModel()
-  {
 
-  }
   public override void Dispose()
   {
     _hotelStore.ReservationMade -= OnReservationMade;

@@ -1,5 +1,4 @@
 ﻿using HotelReservation.ViewModels.Stores;
-using System.Windows;
 
 namespace HotelReservation.ViewModels.Commands;
 
@@ -15,16 +14,17 @@ public class LoadReservationCommand : AsyncCommandBase
   }
   public override async Task ExecuteAsync(object? parameter)
   {
+    _reservationListingViewModel.ErrorMessage = string.Empty;
     _reservationListingViewModel.IsLoading = true;
     try
     {
+
       await _hotelStore.Load();
       _reservationListingViewModel.UpdateReservations(_hotelStore.Reservations);
     }
     catch (Exception)
     {
-      MessageBox.Show("Failed to load Reservation.",
-         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+      _reservationListingViewModel.ErrorMessage = "Failed to load Reservation.";
     }
     _reservationListingViewModel.IsLoading = false;
   }

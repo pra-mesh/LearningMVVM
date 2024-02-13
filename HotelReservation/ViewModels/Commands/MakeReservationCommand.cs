@@ -24,7 +24,7 @@ public class MakeReservationCommand : AsyncCommandBase
 
   private void OnViewModelPropertyChange(object? sender, PropertyChangedEventArgs e)
   {
-    if (e.PropertyName == nameof(MakeReservationViewModel.UserName))
+    if (e.PropertyName == nameof(MakeReservationViewModel.UserName) || e.PropertyName == nameof(MakeReservationViewModel.EndDate) || e.PropertyName == nameof(MakeReservationViewModel.StartDate))
     {
       OnCanExecuteChanged();
     }
@@ -32,7 +32,7 @@ public class MakeReservationCommand : AsyncCommandBase
 
   public override bool CanExecute(object? parameter)
   {
-    return !string.IsNullOrWhiteSpace(_makeReservationViewModel.UserName) && base.CanExecute(parameter);
+    return !string.IsNullOrWhiteSpace(_makeReservationViewModel.UserName) && !_makeReservationViewModel.HasErrors && base.CanExecute(parameter);
   }
   public override async Task ExecuteAsync(object? parameter)
   {

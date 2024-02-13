@@ -13,6 +13,23 @@ public class ReservationListingViewModel : ViewModelBase
   private readonly HotelStore _hotelStore;
 
   public IEnumerable<ReservationViewModel> Reservations => _reservation;
+
+  private string _errorMessage;
+  public string ErrorMessage
+  {
+    get
+    {
+      return _errorMessage;
+    }
+    set
+    {
+      _errorMessage = value;
+      OnPropertyChanged(nameof(ErrorMessage));
+      OnPropertyChanged(nameof(HasErrorMessage));
+    }
+  }
+  public bool HasErrorMessage => !string.IsNullOrEmpty(_errorMessage);
+
   private bool _isLoading;
   public bool IsLoading
   {
